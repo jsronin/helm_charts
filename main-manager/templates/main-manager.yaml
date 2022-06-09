@@ -1,0 +1,72 @@
+# MAIN MANAGER for 5GCARMEN
+# for deployment with NEC EC
+#
+# Author: Antonio Francescon 2022
+# @FBK
+#
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-www-data
+  namespace: {{ .Values.namespace }}
+data:
+  log_level: {{ .Values.log_level }}
+  # put here all other values for ConfigMap
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    run: {{ .Release.Name }}
+  name: {{ .Release.Name }}
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        run: {{ .Release.Name }}
+    spec:
+      containers:
+      - image: {{ .Values.image_repo }}:{{ .Values.image_tag }}
+        name: {{ .Chart.Name }}
+        env:
+          # - name: RESPONSE_ROUTER_POST_ADDRESS
+          #   valueFrom:
+          #     configMapKeyRef:
+          #       name: local-manager-cm
+          #       key: response_router_post_address
+          # - name: RECEIVE_TOPIC
+          #   value: {{.Values.receivetopic}}
+          - name: LOGGER_NAME
+            value: {{ .Values.log_name }}
+          - name: LOG_LEVEL
+            value: {{ .Values.log_level }}
+          - name: API_PORT
+            value: {{ .Values.api_port | quote }}
+          - name: LOCAL_MANAGER_CONFIG_URL
+            value: {{ .Values.lm_api }}
+        resources: {}
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    run: {{ .Release.Name }}
+  name: {{ .Release.Name }}-service
+  namespace: {{ .Values.namespace }}
+spec:
+  ports:
+  - port: {{ .Values.api_port }}
+    protocol: {{ .Values.service.protocol }}
+    targetPort: {{ .Values.api_port }}
+    nodePort: {{ .Values.nodePort }}
+  selector:
+    run: {{ .Release.Name }}
+  type: {{ .Values.service.type }}
+status:
+  loadBalancer: {}
