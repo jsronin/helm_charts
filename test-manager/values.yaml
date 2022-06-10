@@ -1,0 +1,28 @@
+# Default values for test-manager.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+namespace: default
+image:
+  repository: fbksense/test-manager
+  pullPolicy: Always
+
+service:
+  type: NodePort
+  port: 3377
+  protocol: TCP
+
+nodePort: 31377
+
+image_repo: fbksense/test-manager
+image_tag: v0
+
+# MM logger name
+log_name: MmLogger
+# MM log level
+log_level: DEBUG
+# RR API port
+api_port: 3377
+# LM configuration url (POST)
+lm_api: /api/item/from_test_mgr_config_api/
