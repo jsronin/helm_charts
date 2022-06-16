@@ -3,12 +3,12 @@ entries:
   test-manager:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2022-06-16T11:39:18.40456214+02:00"
+    created: "2022-06-16T16:14:39.411742903+02:00"
     description: CLM Test Manager helm chart for Kubernetes
-    digest: 746f9dd8e7dcb0bfadc9d3853a386254210b093bc2dbfb0c06bd9b9b094cf173
+    digest: c5a592f24b9b26e7f3f0d04e092ae28bdbd278ee3c35b601eff52f60e35cc593
     name: test-manager
     type: application
     urls:
     - test-manager-0.1.0.tgz
     version: 0.1.0
-generated: "2022-06-16T11:39:18.401762951+02:00"
+generated: "2022-06-16T16:14:39.411457754+02:00"

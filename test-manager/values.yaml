@@ -13,7 +13,7 @@ service:
   port: 5000
   protocol: TCP
 
-nodePort: 6000
+nodePort: 31000
 
 image_repo: jsroninfbk/echo
 image_tag: latest
