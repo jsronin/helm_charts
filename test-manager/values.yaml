@@ -5,24 +5,18 @@
 replicaCount: 1
 namespace: default
 image:
-  repository: jsronin/test-manager
+  repository: jsroninfbk/echo
   pullPolicy: Always
 
 service:
   type: NodePort
-  port: 3377
+  port: 5000
   protocol: TCP
 
-nodePort: 31377
+nodePort: 6000
 
-image_repo: jsronin/test-manager
-image_tag: v0
+image_repo: jsroninfbk/echo
+image_tag: latest
 
-# MM logger name
-log_name: MmLogger
-# MM log level
-log_level: DEBUG
 # RR API port
-api_port: 3377
-# LM configuration url (POST)
-lm_api: /api/item/from_test_mgr_config_api/
+api_port: 5000
